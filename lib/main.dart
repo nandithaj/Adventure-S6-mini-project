@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:provider/provider.dart';
 
 import 'login.dart';
-import 'screenselection.dart';
-import 'displayPage.dart';
+import 'dash.dart';
+import 'newScreen.dart';
 import 'UserData.dart';
-import 'screendata.dart'; // Import the ScreenIdProvider class
+import 'SuperAdminDashboard.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,15 +16,8 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<UserData>(
-          create: (context) => UserData(),
-        ),
-        ChangeNotifierProvider<ScreenIdProvider>(
-          create: (context) => ScreenIdProvider(),
-        ),
-      ],
+    return ChangeNotifierProvider<UserData>(
+      create: (context) => UserData(),
       child: MaterialApp(
         title: 'Login Page',
         theme: ThemeData(
@@ -31,9 +26,12 @@ class MyApp extends StatelessWidget {
         // Define routes
         initialRoute: '/',
         routes: {
-          '/': (context) => LoginPage(),
-          '/screenSelection': (context) => ScreenSelectionPage(),
-          '/adPlaying': (context) => DisplayAdImage(), // Add route for AdPlayingPage
+          '/': (context) => const LoginPage(),
+          //'/NewScreen': (context) => const SignupPage(),
+          '/DashboardScreen': (context) => const DashboardScreen(),
+          '/RegisterScreen': (context) => const NewScreenPage(),
+          '/SuperAdminDashboard': (context) => const SuperAdminDashboard(),
+          // ... other routes for your app
         },
       ),
     );
